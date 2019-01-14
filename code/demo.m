@@ -61,7 +61,7 @@ for name =  {'org_vs_people','org_vs_place', 'people_vs_place'}
 %         idx = kmeans(Xt,2,'distance','correlation');
 %         Xt = [ Xt(idx==1,:); Xt(idx==2,:)];
 %         Yt = [ Yt(idx==1,:);Yt(idx==2,:)];
-        [Xs,Ys] = basis_transfer(Xs,Xt,Ys);
+        [Xs,Ys] = augmentation(Xs,Xt,Ys);
         [Xt,Xs]=ny_svd(Xt,Xs,600);
         m = size(Xs, 1);
         n = size(Xt, 1);

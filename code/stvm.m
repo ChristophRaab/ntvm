@@ -27,6 +27,7 @@ function [model] = stvm(Xs,Ys,Xt,options)
 C = unique(Ys,'stable');
 sizeC = size(C,1);
 %    Align of feature space examples´
+ [Xs,Ys] = augmentation(Xs,Xt,Ys);
  [Xs,Ys] = basis_transfer(Xs,Xt,Ys);
   %     Xt = US*S*VS';
 %  [Xt,Xs]=ny_svd(Xt,Xs,600);
