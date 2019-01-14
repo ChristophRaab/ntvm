@@ -44,7 +44,7 @@ for name =  {'org_vs_people','org_vs_place', 'people_vs_place'}
 
         [erate, nvec, label, y_prob] = stvm_predict(Yt,model);
         erate = erate*100;
-        fprintf('\nSTVM %.2f%% \n', erate);
+        Rfprintf('\nSTVM %.2f%% \n', erate);
 
         %Clustering:
         %idx = kmeans(Xs,2,'distance','cosine');

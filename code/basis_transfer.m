@@ -56,6 +56,6 @@ function [Xs,Ys] = basis_transfer(Xs,Xt,Ys)
     
     [US,SZ,VS] = svd(Xs,"econ");
     [U,S,V] = svd(Xt,"econ");
-    Xs = U*SZ*V';
+     Xs = U*SZ*V';
 end
 
