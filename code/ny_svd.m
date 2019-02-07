@@ -3,7 +3,8 @@ function [X,Z] = ny_svd(X,Z,landmarks)
 %   Detailed explanation goes here
 X = full(X);
 Z = full(Z);
-idx = randperm(size(X,1),landmarks);
+landmarks =min(min(size(X,1),size(X,2)),landmarks);
+idx = randperm(min(size(X,1),size(X,2)),landmarks);
 
 A = X(idx,idx);
 B = X(1:landmarks,landmarks+1:end);
