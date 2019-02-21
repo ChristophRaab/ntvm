@@ -47,7 +47,7 @@ elseif sizeM > 2
         
         % Taking the lower left square for prediction
     
-        [erate, nvec, label, y_prob] = stvm_predict(Yt,model(i));
+        [erate, nvec, label, y_prob] = ntvm_predict(Yt,model(i));
         
         label(find(label==1)) = model(i).one;
         label(find(label==-1)) = model(i).two;

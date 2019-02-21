@@ -34,7 +34,7 @@ sizeC = size(C,1);
 
 if sizeC == 2
   
-    model = stvm_train(Xs,Ys,Xt,options);
+    model = ntvm_train(Xs,Ys,Xt,options);
     
 elseif sizeC > 2
     fprintf('\nMulticlass Problem detected! Splitting up label vector..\n');
@@ -54,7 +54,7 @@ elseif sizeC > 2
             
             XsOR= [Xs(oneIndx,:); Xs(twoIndx,:)];
             
-            singleM = stvm_train(XsOR,YsOR,Xt,options);
+            singleM = ntvm_train(XsOR,YsOR,Xt,options);
             singleM.one = one; singleM.two = two;
             model(u) = singleM;
             
