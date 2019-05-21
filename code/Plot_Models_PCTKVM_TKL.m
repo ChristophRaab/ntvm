@@ -38,6 +38,10 @@ modelsvm = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-s 0 -c ', num2str(10), '
 
 % Find subspace embedding with minimal loss
 i = 50; j = 30;
+%Others 
+%perp=[50,30,40];
+%pcadim=[70,50,100];
+
 [Xs,loss]  = tsne(full(Xs),'Algorithm','barneshut','NumDimensions',2,'NumPCAComponents',j,'Perplexity',i);
        
 %% Plot it
