@@ -248,7 +248,7 @@ options.g = 40;              % GFK: subspace dimension
 options.tcaNv = 60;          % TCA: numbers of Vectors after reduction
 options.theta = 2;           %PCVM: Width of gaussian kernel
 options.subspace_dim_d = 5;  %SA: Subspace Dimensions
-options.landmarks = 1000;    %NTVM: Number of Landmarks
+options.landmarks = 1;    %NTVM: Number of Landmarks
 options.ntvm_ker = 'rbf';    %NTVM: Kernel Typ
 subtime = [];
 for name = {'comp_vs_rec','comp_vs_sci','comp_vs_talk','rec_vs_sci','rec_vs_talk','sci_vs_talk'}%
@@ -282,12 +282,14 @@ for name = {'comp_vs_rec','comp_vs_sci','comp_vs_talk','rec_vs_sci','rec_vs_talk
         %         t = toc;
         %         fprintf('SVM = %.2f%%\n', acc(1));
         %
-        %         %% PCVM
-        %         tic
-        %         model = pcvm_train(Xs',Ys,options.gamma);
-        %         [erate, nvec, label, y_prob] = pcvm_predict(Xs',Ys,Xt',Yt,model);
-        %         t = toc;
-        %         fprintf('\nPCVM %.2f%% \n', 100-erate*100)
+        %% PCVM
+        tic
+        model = pcvm_train(Xs',Ys,options.gamma);
+        [erate, nvec, label, y_prob] = pcvm_predict(Xs',Ys,Xt',Yt,model);
+        t = toc;
+        fprintf('\nPCVM %.2f%% \n', 100-erate*100)
+        ssubtime = [ssubtime  t];
+
         %
         %         %% TCA
         %         tic
@@ -322,13 +324,13 @@ for name = {'comp_vs_rec','comp_vs_sci','comp_vs_talk','rec_vs_sci','rec_vs_talk
         %         fprintf('\nTKL %.2f%%\n',acc(1));
         %
         %
-        %         %% PCTKVM No Theta Est
-        %         tic
-        %         options.theta =2;
-        %         model = pctkvm_train(Xs',Ys,Xt',options);
-        %         [erate, nvec, label, y_prob] = pctkvm_predict(Ys,Yt,model);
-        %         t = toc;
-        %         fprintf('\nPCTKVM_Theta %.2f%% \n', 100-erate*100);
+        %% PCTKVM No Theta Est
+        tic
+        options.theta =2;
+        model = pctkvm_train(Xs',Ys,Xt',options);
+        [erate, nvec, label, y_prob] = pctkvm_predict(Ys,Yt,model);
+        t = toc;
+        fprintf('\nPCTKVM_Theta %.2f%% \n', 100-erate*100);
         %
         %         %% SA
         %         tic
@@ -340,13 +342,13 @@ for name = {'comp_vs_rec','comp_vs_sci','comp_vs_talk','rec_vs_sci','rec_vs_talk
         %         fprintf('\nSA %.2f%%\n',acc(1));
         %         t = toc;
         
-        %% NTVM
-        tic
-        model = ntvm(full(Xs'),full(Ys),full(Xt'),options);
-        [erate, nvec, label, y_prob] = ntvm_predict(Yt,model);
-        fprintf('\nNTVM %.2f%% \n', 100-erate*100);
-        t = toc;
-        ssubtime = [ssubtime  t];
+%         %% NTVM
+%         tic
+%         model = ntvm(full(Xs'),full(Ys),full(Xt'),options);
+%         [erate, nvec, label, y_prob] = ntvm_predict(Yt,model);
+%         fprintf('\nNTVM %.2f%% \n', 100-erate*100);
+%         t = toc;
+%         ssubtime = [ssubtime  t];
         subtime = [subtime;ssubtime];
     end
 end

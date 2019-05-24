@@ -33,63 +33,63 @@ for strData = {'org_vs_people','org_vs_place', 'people_vs_place'} %
         
         m = size(Xs, 2);
         n = size(Xt, 2);
-%         %% SVM
-%         K = kernel(options.ker, [Xs, Xt], [],options.gamma);
-%         model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-c ', num2str(options.svmc), ' -t 4 -q 1']);
-%         [label, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
-%         fprintf('SVM = %.2f%%\n', acc(1));
-%         
-%         %% PCVM
-%         
-%         model = pcvm_train(Xs',Ys,options.gamma);
-%         [erate, nvec, label, y_prob] = pcvm_predict(Xs',Ys,Xt',Yt,model);
-%         fprintf('\nPCVM %.2f%% \n', 100-erate*100)
-%         
-%         %% TCA
-%         nt = length(Ys);
-%         mt = length(Yt);
-%         K = tca(Xs',Xt',options.tcaNv,options.gamma,options.ker);
-%         model = svmtrain(full(Ys),[(1:nt)',K(1:nt,1:nt)],['-s 0 -c ', num2str(options.svmc), ' -t 4 -q 1']);
-%         [label,acc,scores] = svmpredict(full(Yt),[(1:mt)',K(nt+1:end,1:nt)],model);
-%         
-%         fprintf('\nTCA %.2f%% \n',acc(1));
-%         
-%         %% JDA
-%         
-%         Cls = [];
-%         [Z,A] = JDA(Xs,Xt,Ys,Cls,options);
-%         Z = Z*diag(sparse(1./sqrt(sum(Z.^2))));
-%         Zs = Z(:,1:size(Xs,2));
-%         Zt = Z(:,size(Xs,2)+1:end);
-%         K = kernel(options.ker, Z, [],options.gamma);
-%         model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-c ', num2str(options.svmc), ' -t 4 -q 1']);
-%         [label, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
-%         fprintf('\nJDA %.2f%% \n',acc(1));
-%         
-%         
-%         %% TKL SVM
-%         tic;
-%         K = TKL(Xs, Xt, options);
-%         model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-s 0 -c ', num2str(options.svmc), ' -t 4 -q 1']);
-%         [labels, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
-%         fprintf('\nTKL %.2f%%\n',acc(1));
-%         
-%         
-%         %% PCTKVM No Theta Est
-%         
-%         options.theta =2;
-%         model = pctkvm_train(Xs',Ys,Xt',options);
-%         [erate, nvec, label, y_prob] = pctkvm_predict(Ys,Yt,model);
-%         
-%         fprintf('\nPCTKVM_Theta %.2f%% \n', 100-erate*100);
-%         
-%         %% SA
-%         [Xss,~,~] = pca(Xs');
-%         [Xtt,~,~] = pca(Xt');
-%         Xss = Xss(:,1:options.subspace_dim_d);
-%         Xss = Xtt(:,1:options.subspace_dim_d);
-%         [predicted_label, acc, decision_values,model] =  Subspace_Alignment(Xs',Xt',Ys,Yt,Xss,Xtt);
-%         fprintf('\nSA %.2f%%\n',acc(1));
+        %% SVM
+        K = kernel(options.ker, [Xs, Xt], [],options.gamma);
+        model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-c ', num2str(options.svmc), ' -t 4 -q 1']);
+        [label, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
+        fprintf('SVM = %.2f%%\n', acc(1));
+        
+        %% PCVM
+        
+        model = pcvm_train(Xs',Ys,options.gamma);
+        [erate, nvec, label, y_prob] = pcvm_predict(Xs',Ys,Xt',Yt,model);
+        fprintf('\nPCVM %.2f%% \n', 100-erate*100)
+        
+        %% TCA
+        nt = length(Ys);
+        mt = length(Yt);
+        K = tca(Xs',Xt',options.tcaNv,options.gamma,options.ker);
+        model = svmtrain(full(Ys),[(1:nt)',K(1:nt,1:nt)],['-s 0 -c ', num2str(options.svmc), ' -t 4 -q 1']);
+        [label,acc,scores] = svmpredict(full(Yt),[(1:mt)',K(nt+1:end,1:nt)],model);
+        
+        fprintf('\nTCA %.2f%% \n',acc(1));
+        
+        %% JDA
+        
+        Cls = [];
+        [Z,A] = JDA(Xs,Xt,Ys,Cls,options);
+        Z = Z*diag(sparse(1./sqrt(sum(Z.^2))));
+        Zs = Z(:,1:size(Xs,2));
+        Zt = Z(:,size(Xs,2)+1:end);
+        K = kernel(options.ker, Z, [],options.gamma);
+        model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-c ', num2str(options.svmc), ' -t 4 -q 1']);
+        [label, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
+        fprintf('\nJDA %.2f%% \n',acc(1));
+        
+        
+        %% TKL SVM
+        tic;
+        K = TKL(Xs, Xt, options);
+        model = svmtrain(full(Ys), [(1:m)', K(1:m, 1:m)], ['-s 0 -c ', num2str(options.svmc), ' -t 4 -q 1']);
+        [labels, acc,scores] = svmpredict(full(Yt), [(1:n)', K(m+1:end, 1:m)], model);
+        fprintf('\nTKL %.2f%%\n',acc(1));
+        
+        
+        %% PCTKVM No Theta Est
+        
+        options.theta =2;
+        model = pctkvm_train(Xs',Ys,Xt',options);
+        [erate, nvec, label, y_prob] = pctkvm_predict(Ys,Yt,model);
+        
+        fprintf('\nPCTKVM_Theta %.2f%% \n', 100-erate*100);
+        
+        %% SA
+        [Xss,~,~] = pca(Xs');
+        [Xtt,~,~] = pca(Xt');
+        Xss = Xss(:,1:options.subspace_dim_d);
+        Xss = Xtt(:,1:options.subspace_dim_d);
+        [predicted_label, acc, decision_values,model] =  Subspace_Alignment(Xs',Xt',Ys,Yt,Xss,Xtt);
+        fprintf('\nSA %.2f%%\n',acc(1));
         
         
         %% NTVM
@@ -98,8 +98,8 @@ for strData = {'org_vs_people','org_vs_place', 'people_vs_place'} %
         fprintf('\nNTVM %.2f%% \n', 100-erate*100);
     end
 end
-
-clear all;
+% % 
+% clear all;
 %% OFFICE vs CALLTECH-256 Dataset
 options.ker = 'rbf';         % TKL: kernel: 'linear' | 'rbf' | 'lap'
 options.eta = 1.1;           % TKL: eigenspectrum damping factor
