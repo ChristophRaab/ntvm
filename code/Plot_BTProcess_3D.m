@@ -1,5 +1,7 @@
 %% TWO Labels
 % 
+close all;
+clear;
 Z= [randn(100,3)+3; randn(100,3)+5];
 Ys = [ones(100,1); ones(100,1)*2];
 
@@ -19,10 +21,10 @@ label = cmap(Y,:);
 figure;
 hold on;
 set(gca,'color','none') 
-scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'x','b');
-scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'*','g');
-scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'*','r');
-scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','m');
+scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'o','b');
+scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'o','g');
+scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'x','b');
+scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','g');
 xlabel('x')
 ylabel('y')
 zlabel('z')
@@ -45,10 +47,10 @@ Y = [Ys;Yt];
 figure;
 hold on;
 set(gca,'color','none') 
-s1=scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'x','b');
-s2=scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'*','g');
-s3=scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'*','r');
-s4=scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','m');
+scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'o','b');
+scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'o','g');
+scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'x','b');
+scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','g');
 xlabel('x')
 ylabel('y')
 zlabel('z')
@@ -65,18 +67,20 @@ ax.Position = [left bottom ax_width ax_height];
 print("DataNormalized","-depsc","-r1000")
 hold off;
 
-[U,S,V] = svd(Z);
-[~,ZS,~] = svd(X);
-Z = U*ZS*V';
-
+[~,ZS,~] = svd(Z);
+[U,~,V] = svd(X);
+Z = (U*ZS*V')+0.5*randn
+% [U,~,V] = svd(X);
+% [~,ZS,~] = svd(Z);
+% Z = (U*ZS*V');
 D = [Z;X];
 figure;
 hold on;
 set(gca,'color','none') 
-scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'*','g');
-scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'x','b');
-scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'*','r');
-scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','m');
+scatter3(D(find(Y==1),1),D(find(Y==1),2),D(find(Y==1),3),'o','b');
+scatter3(D(find(Y==2),1),D(find(Y==2),2),D(find(Y==2),3),'o','g');
+scatter3(D(find(Y==3),1),D(find(Y==3),2),D(find(Y==3),3),'x','b');
+scatter3(D(find(Y==4),1),D(find(Y==4),2),D(find(Y==4),3),'x','g');
 xlabel('x')
 ylabel('y')
 zlabel('z')
